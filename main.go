@@ -3,6 +3,7 @@ package main
 import (
 	"image/color"
 	"math/rand"
+	"os"
 	"strconv"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -126,6 +127,11 @@ func (g *game) Update() error {
 	g.ball.x += g.ball.dx
 	g.ball.y += g.ball.dy
 
+	// press escape to quit
+	if ebiten.IsKeyPressed(ebiten.KeyEscape) {
+		os.Exit(0)
+	}
+
 	return nil
 }
 
@@ -159,7 +165,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	// text.Draw(screen, "Score Left: "+string(g.scoreLeft), 10, 20, font, black)
 	// text.Draw(screen, "Score Right: "+string(g.scoreRight), screenWidth-100, 20, font, black)
 	t := "Score Left: " + strconv.Itoa(g.scoreLeft) + " Score Right: " + strconv.Itoa(g.scoreRight)
-	ebitenutil.DebugPrint(screen, t)
+	ebitenutil.DebugPrintAt(screen, t, 230, 20)
 }
 
 func main() {
